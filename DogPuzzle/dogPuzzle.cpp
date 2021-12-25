@@ -33,15 +33,17 @@ bool checkPuzzle(CARD puzzle[3][3]) {
 	for (int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i != 2) {
+				//farbe muss gleich sein
 				if (puzzle[i][j].s[0][0] != puzzle[i + 1][j].n[0][0])
 					return false;
-				if (puzzle[i][j].s[0][1] != puzzle[i + 1][j].n[0][1])
+				//Körperteil muss ungleich sein
+				if (puzzle[i][j].s[0][1] == puzzle[i + 1][j].n[0][1])
 					return false;
 			}
 			if (j != 2) {
 				if (puzzle[i][j].s[0][0] != puzzle[i][j + 1].n[0][0])
 					return false;
-				if (puzzle[i][j].s[0][1] != puzzle[i][j + 1].n[0][1])
+				if (puzzle[i][j].s[0][1] == puzzle[i][j + 1].n[0][1])
 					return false;
 			}
 		}
@@ -174,24 +176,32 @@ int main() {
 	//iterate through all permutations
 	int a[9] = { 1,2,3,4,5,6,7,8,9 };
 	int counter = 0;
-	//try all rotations
+	//try all permutations
 	do {
 		int k = 0;
-		//add into array
+		//add current permutation into array
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				puzzle[i][j] = cardArray[a[k] - 1];
 				k++;
 			}
 		}
+
+		//rotate current permutation into all possible orientations
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+
+			}
+		}
 		//check array
-		cout << counter << endl;
 		if (checkPuzzle(puzzle)) {
 			cout << a;
 			std::cin.ignore();
 		}
-		//rotate 
+		
 
+		if (counter % 10000 == 0)
+			cout << counter << endl;
 		counter++;
 	} while (std::next_permutation(a, a + 9));
 	//}
